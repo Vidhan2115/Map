@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="public/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
+<body>
+     <div id="map" style="height: 710px; width:;"></div>
+     
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+    <script src="public/js/script.js"></script>
+    <script>
+        const map = L.map('map').fitWorld();
+        map.locate({setView: true, maxZoom: 16});
+
+        function onLocationFound(e){
+            constradius = e.accuracy;
+
+            L.marker(e.latlng).addTo(map)
+                .bindPopup("You are here within" + Math.round(radius) + "meters").openPopup();
+
+                L.circle(e.latling, radius).addTo(map);
+        }
+
+        map.on('locationfound', onLocationFound);
+
+        function onLocationError(e){
+            alert(e.message);
+        }
+
+        map.on('locationerror', onLocationError);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution:"vidhan's project"
+        }).addTo(map);
+    </script>
+</body>
+
+</html>
